@@ -4,6 +4,7 @@ const cors = require("cors");
 const { NotFoundError } = require("./services/expressError");
 const morgan = require("morgan");
 const app = express();
+
 const usersRoutes = require('./routes/users')
 
 app.use(cors());
