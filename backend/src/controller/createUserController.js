@@ -1,5 +1,5 @@
 "use strict";
-const {BadRequestError} = require("../services/expressError")
+const {BadRequestError} = require("../services/expressErrorServices")
 
 module.exports = function CreateUserController ({username, password}) {
     try {
