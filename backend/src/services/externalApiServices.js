@@ -9,7 +9,7 @@ class ExternalApiServices {
 
     const res = await axios
       .get(`${apiUrl}${getMovieRoute}${id}?${apiKey}`)
-      .catch(function (error) {
+      .catch(() => {
         throw new NotFoundError("Movie not found in external API!");
       });
 

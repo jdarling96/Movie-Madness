@@ -29,7 +29,7 @@ describe("/movies/:id => success", () => {
 
 describe("/movies/:id => success", () => {
     let axios = {
-      get: () => Promise.reject(),
+      get: () => Promise.reject(new NotFoundError("Movie not found in external API!")),
     };
     let app;
   
