@@ -2,14 +2,23 @@
 const {API_KEY, API_URL} = require("../config/config")
 
 class ExternalApiController {
-    constructor(ExternalApiServices, axios,{}){
+    constructor(ExternalApiServices, axios){
         this.ExternalApiServices = ExternalApiServices
         this.axios = axios
         this.API_KEY = API_KEY
         this.API_URL = API_URL
     }
     // get a movie from movie ID
-    async getMovie(){
+    async getMovie(id, params){
+        try {
+            
+            const res = await this.ExternalApiServices.getMovie(this.axios, this.API_URL, id, this.API_KEY, params)
+            return res
+
+            
+        } catch (error) {
+            return error
+        }
 
     }
     // get movies now playing in theaters
