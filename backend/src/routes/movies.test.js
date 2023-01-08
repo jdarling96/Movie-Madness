@@ -27,7 +27,7 @@ describe("/movies/:id => success", () => {
   });
 });
 
-describe("/movies/:id => success", () => {
+describe("/movies/:id => failure", () => {
     let axios = {
       get: () => Promise.reject(new NotFoundError("Movie not found in external API!")),
     };
