@@ -9,7 +9,8 @@ const createUserController = require("../controller/createUserController");
 const ExternalApiServices = require("../services/externalApiServices")
 
 const params = {
-    getMovieRoute: /movie/
+    getMovieRoute: '/movie/',
+    getNowPlayingRoute: '/movie/now_playing?',
 }
 
 

@@ -6,8 +6,8 @@ require("dotenv").config();
 require("colors");
 
 const SECRET_KEY = process.env.SECRET_KEY || "secret-dev";
-const API_KEY = process.env.API_KEY || 'api_key=e70f9b8347752b48b48889780639dafd'
-const API_URL = process.env.API_URL || 'https://api.themoviedb.org/3'
+const API_KEY = process.env.API_KEY 
+const API_URL = process.env.API_URL 
 
 const PORT = +process.env.PORT || 3002;
 

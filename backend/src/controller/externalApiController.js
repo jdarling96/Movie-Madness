@@ -1,6 +1,7 @@
 "use strict";
+const { query } = require("express");
 const { API_KEY, API_URL } = require("../config/config");
-const utils = require("../utils");
+const {createImageFromApiObject , createImageFromApiArray} = require("../utils");
 
 
 class ExternalApiController {
@@ -20,15 +21,30 @@ class ExternalApiController {
         this.API_KEY,
         params
       );
-      return utils(res);
+      return createImageFromApiObject(res);
     } catch (error) {
       throw error;
     }
   }
   // get movies now playing in theaters
   // optional string:lang => default: en-US, int:page, string:region
-  async getNowPlaying() {
-    const res = await this.ExternalApiServices();
+  async getNowPlaying(params, query) {
+    try {
+        const res = await this.ExternalApiServices.getMoviesGroupedBy(
+            this.axios,
+            this.API_URL,
+            params,
+            this.API_KEY,
+            query
+          );
+          //let updateImages = 
+          return createImageFromApiArray(res)
+        
+    } catch (error) {
+        throw error
+    }
+    
+    
   }
   // get popular movies
   async getPopular() {

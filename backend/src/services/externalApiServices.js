@@ -1,6 +1,6 @@
 "use strict";
 
-const { NotFoundError } = require("./expressErrorServices");
+const { NotFoundError, BadRequestError } = require("./expressErrorServices");
 
 class ExternalApiServices {
   // get specific movie
@@ -21,7 +21,18 @@ class ExternalApiServices {
   // get top rated movies
   // get upcoming movie
   // optional string:lang => default: en-US, int:page, string:region
-  static async getMoviesGroupedBy() {}
+  static async getMoviesGroupedBy(axios, apiUrl, params, apiKey, query) {
+    let {getNowPlayingRoute} = params
+    let page = +query.page || 1
+    //if(page > 78) page = 78
+    console.log(`${apiUrl}${getNowPlayingRoute}${apiKey}&page=${page}`)
+    
+    const res = await axios.get(`${apiUrl}${getNowPlayingRoute}${apiKey}&page=${page}`)
+    .catch(() => {
+        throw new BadRequestError("Check API url or query string!")
+    })
+    return res.data
+  }
   //Get movies by genre id /discover/movie  optional:with_genre={genreId}
   async getGenres() {}
 }
