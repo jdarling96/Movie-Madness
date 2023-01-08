@@ -4,8 +4,8 @@ let imageUrls = {
 }
 
 let urlSizes = {
-    list: "w300",
-    standAlone: "w780"
+    backdrop: "w780",
+    poster: "w185"
 }
 
 

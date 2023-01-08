@@ -1,5 +1,6 @@
 "use strict";
 const {API_KEY, API_URL} = require("../config/config")
+const utils = require("../utils")
 
 class ExternalApiController {
     constructor(ExternalApiServices, axios){
@@ -13,6 +14,18 @@ class ExternalApiController {
         try {
             
             const res = await this.ExternalApiServices.getMovie(this.axios, this.API_URL, id, this.API_KEY, params)
+            for(let key in res){
+                if(key === "backdrop_path"){
+                    let buildImage = utils(res[key], "backdrop")
+                    res[key] = buildImage
+
+                }
+                if(key === "poster_path"){
+                    let buildImage = utils(res[key], "poster")
+                    res[key] = buildImage
+
+                }
+            }
             return res
 
             
