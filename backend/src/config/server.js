@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 app.use("/users", userRouter.userRoutes())
-app.use("/movie", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, params}))
+app.use("/movies", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, params}))
 
 app.use(function (req, res, next) {
   return next(new NotFoundError());

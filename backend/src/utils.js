@@ -1,22 +1,20 @@
-const {imageUrls,urlSizes} = require("./constants/imageUrls")
-function createImageFromApi(data, type){
-    let {baseUrl} = imageUrls
-    let {backdrop, poster} = urlSizes
+const { imageUrls, urlSizes } = require("./constants/imageUrls");
+function createImageFromApi(data) {
+  let { baseUrl } = imageUrls;
+  let { backdrop, poster } = urlSizes;
 
-    if(type === "backdrop"){
-        
-        return`${baseUrl}${backdrop}${data}`
+  for (let key in data) {
+    if (key === "backdrop_path") {
+      let endURL = data[key]
+      data[key] = `${baseUrl}${backdrop}${endURL}`;
     }
-    if(type === "poster") {
-        return`${baseUrl}${poster}${data}`
-
+    if (key === "poster_path") {
+      let endURL = data[key]
+      data[key] = `${baseUrl}${poster}${endURL}`;
     }
-        
+  }
 
-    
-
-
+  return data;
 }
 
-
-module.exports = createImageFromApi
+module.exports = createImageFromApi;
