@@ -22,16 +22,25 @@ class ExternalApiServices {
   // get upcoming movie
   // optional string:lang => default: en-US, int:page, string:region
   static async getMoviesGroupedBy(axios, apiUrl, params, apiKey, query) {
-    let {getNowPlayingRoute} = params
-    let page = +query.page || 1
-    //if(page > 78) page = 78
-    console.log(`${apiUrl}${getNowPlayingRoute}${apiKey}&page=${page}`)
-    
-    const res = await axios.get(`${apiUrl}${getNowPlayingRoute}${apiKey}&page=${page}`)
-    .catch(() => {
-        throw new BadRequestError("Check API url or query string!")
-    })
-    return res.data
+    let { getNowPlayingRoute } = params;
+    let checkKeys = Object.keys(query)
+    if (checkKeys.includes("page") || checkKeys.length === 0) {
+      let page = +query.page || 1;
+      if (page > 78) page = 78;
+      console.log(`${apiUrl}${getNowPlayingRoute}${apiKey}&page=${page}`);
+
+      const res = await axios
+        .get(`${apiUrl}${getNowPlayingRoute}${apiKey}&page=${page}`)
+        .catch(() => {
+          throw new BadRequestError("Check API url or query string!");
+        });
+        return res.data;
+    } else{
+        throw new BadRequestError("Check API url or query string!");
+
+    }
+
+   
   }
   //Get movies by genre id /discover/movie  optional:with_genre={genreId}
   async getGenres() {}
