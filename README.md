@@ -2,8 +2,11 @@
 A full stack web app that leverages TMD API allowing users to find, save and recommend movies to there friends. Keep track of the movies you like and stop yourself from aimlessly scrolling streaming providers.
 
 ## Database Schema
-![Screenshot from 2023-01-05 10-46-39](https://user-images.githubusercontent.com/28359915/210849976-b0ef56c8-194d-4b3d-a43b-8a24fabf8e17.png)
+![Screenshot from 2023-01-09 10-05-34](https://user-images.githubusercontent.com/28359915/211366202-a96f0965-102b-42bf-b028-83b09899aced.png)
+
+
 
 ## Site Flow
+![Screenshot from 2023-01-09 10-07-18](https://user-images.githubusercontent.com/28359915/211366111-96b8d0a7-0c79-49a7-bdc5-1eabf9f8a256.png)
 
-![Screenshot from 2023-01-05 12-48-08](https://user-images.githubusercontent.com/28359915/210867377-49684ada-567f-4c9c-a69b-dc1d011215fc.png)
+
