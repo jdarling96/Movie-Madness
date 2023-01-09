@@ -12,8 +12,9 @@ const API_URL = process.env.API_URL
 const PORT = +process.env.PORT || 3002;
 
 const params = {
-  getMovieRoute: '/movie/',
-  getNowPlayingRoute: '/movie/now_playing?',
+  getMovieRoute: "/movie/",
+  getNowPlayingRoute: "/movie/now_playing",
+  getPopularRoute: "/movie/popular"
 }
 
 // Use dev database, testing database, or via env var, production database

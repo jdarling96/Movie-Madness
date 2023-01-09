@@ -12,13 +12,14 @@ class ExternalApiController {
   }
   // get a movie from movie ID
   async getMovie(id, params) {
+    let {getMovieRoute} = params
     try {
       const res = await this.ExternalApiServices.getMovie(
         this.axios,
         this.API_URL,
         id,
         this.API_KEY,
-        params
+        getMovieRoute
       );
       return this.utils.createImageFromApiObject(res);
     } catch (error) {
@@ -28,11 +29,12 @@ class ExternalApiController {
   // get movies now playing in theaters
   // optional string:lang => default: en-US, int:page, string:region
   async getNowPlaying(query, params) {
+    let {getNowPlayingRoute} = params
     try {
       const res = await this.ExternalApiServices.getMoviesGroupedBy(
         this.axios,
         this.API_URL,
-        params,
+        getNowPlayingRoute,
         this.API_KEY,
         query
       );
@@ -44,8 +46,23 @@ class ExternalApiController {
     }
   }
   // get popular movies
-  async getPopular() {
-    const res = await this.ExternalApiServices();
+  async getPopular(query, params) {
+    let {getPopularRoute} = params
+    try {
+        const res = await this.ExternalApiServices.getMoviesGroupedBy(
+            this.axios,
+            this.API_URL,
+            getPopularRoute,
+            this.API_KEY,
+            query
+          );
+
+          return this.utils.createImageFromApiArray(res)
+        
+    } catch (error) {
+        throw error
+    }
+    
   }
   // get top rated movies
   async getTopRated() {
