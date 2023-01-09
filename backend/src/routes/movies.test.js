@@ -141,3 +141,49 @@ describe("/movies/:id => failure", () => {
         return await request(app).get('/movies/popular?page=1000').expect(400);
       });
   });
+
+  describe("/movies/top_rated => success", () => {
+    let axios = {
+      get: () => Promise.resolve({ data: "Success" }),
+    };
+    let app;
+  
+    beforeEach(() => {
+      app = server({
+        ExternalApiController,
+        ExternalApiServices,
+        axios,
+        params,
+        utils
+      });   
+    });
+  
+    test("should return a 200", async () => {
+      return await request(app).get("/movies/top_rated").expect(200)
+    });
+     
+  });
+
+  describe("/movies/top_rated => failure", () => {
+    let axios = {
+      get: () => Promise.reject(new BadRequestError("Check API url or query string!")),
+    };
+    let app;
+  
+    beforeEach(() => {
+      app = server({
+        ExternalApiController,
+        ExternalApiServices,
+        axios,
+        params,
+        utils
+      });
+    });
+  
+    test("should return a 400", async () => {
+      return await request(app).get('/movies/top_rated?wow').expect(400);
+    });
+    test("should return a 400", async () => {
+        return await request(app).get('/movies/top_rated?page=1000').expect(400);
+      });
+  });
