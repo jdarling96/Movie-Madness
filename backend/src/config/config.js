@@ -16,6 +16,7 @@ const params = {
   getNowPlayingRoute: "/movie/now_playing",
   getPopularRoute: "/movie/popular",
   getTopRatedRoute: "/movie/top_rated",
+  getUpcomingRoute: "/movie/upcoming",
 }
 
 // Use dev database, testing database, or via env var, production database

@@ -84,8 +84,23 @@ class ExternalApiController {
     
   }
   // get upcoming movie
-  async getUpcoming() {
-    const res = await this.ExternalApiServices();
+  async getUpcoming(params, query) {
+    let {getUpcomingRoute} = params
+    try {
+        const res = await this.ExternalApiServices.getMoviesGroupedBy(
+            this.axios,
+            this.API_URL,
+            getUpcomingRoute,
+            this.API_KEY,
+            query
+          );
+          return this.utils.createImageFromApiArray(res)
+        
+    } catch (error) {
+        throw error
+        
+    }
+   
   }
 
   //Get movies by genre id /discover/movie  optional:with_genre={genreId}
