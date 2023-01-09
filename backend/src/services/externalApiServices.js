@@ -26,6 +26,7 @@ class ExternalApiServices {
     let checkKeys = Object.keys(query)
     if (checkKeys.includes("page") || checkKeys.length === 0) {
       let page = +query.page || 1;
+      if(page >= 1000) throw new BadRequestError("Maximum page reached!")
       const res = await axios
         .get(`${apiUrl}${route}?${apiKey}&page=${page}`)
         .catch(() => {

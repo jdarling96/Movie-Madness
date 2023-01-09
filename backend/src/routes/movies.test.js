@@ -69,12 +69,7 @@ describe("/movies/:id => failure", () => {
   
     test("should return a 200", async () => {
       return await request(app).get("/movies/now_playing").expect(200)
-    });
-    
-    test("should return a 200", async () => {
-        return await request(app).get('/movies/now_playing?page=79').expect(200);
-        
-      }); 
+    }); 
   });
 
   describe("/movies/now_playing => failure", () => {
@@ -93,7 +88,56 @@ describe("/movies/:id => failure", () => {
       });
     });
   
-    test("should return a 200", async () => {
+    test("should return a 400", async () => {
       return await request(app).get('/movies/now_playing?wow').expect(400);
     });
+    test("should return a 400", async () => {
+        return await request(app).get('/movies/now_playing?page=1000').expect(400);
+      });
+  });
+
+  describe("/movies/popular => success", () => {
+    let axios = {
+      get: () => Promise.resolve({ data: "Success" }),
+    };
+    let app;
+  
+    beforeEach(() => {
+      app = server({
+        ExternalApiController,
+        ExternalApiServices,
+        axios,
+        params,
+        utils
+      });   
+    });
+  
+    test("should return a 200", async () => {
+      return await request(app).get("/movies/popular").expect(200)
+    });
+     
+  });
+
+  describe("/movies/popular=> failure", () => {
+    let axios = {
+      get: () => Promise.reject(new BadRequestError("Check API url or query string!")),
+    };
+    let app;
+  
+    beforeEach(() => {
+      app = server({
+        ExternalApiController,
+        ExternalApiServices,
+        axios,
+        params,
+        utils
+      });
+    });
+  
+    test("should return a 400", async () => {
+      return await request(app).get('/movies/popular?wow').expect(400);
+    });
+    test("should return a 400", async () => {
+        return await request(app).get('/movies/popular?page=1000').expect(400);
+      });
   });
