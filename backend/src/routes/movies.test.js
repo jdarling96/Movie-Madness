@@ -70,10 +70,11 @@ describe("/movies/:id => failure", () => {
     test("should return a 200", async () => {
       return await request(app).get("/movies/now_playing").expect(200)
     });
-    /* test("should return a 200", async () => {
-        const resp = await request(app).get('/movies/now_playing?page=79').expect(200);
+    
+    test("should return a 200", async () => {
+        return await request(app).get('/movies/now_playing?page=79').expect(200);
         
-      }); */
+      }); 
   });
 
   describe("/movies/now_playing => failure", () => {
