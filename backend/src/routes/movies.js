@@ -1,4 +1,5 @@
 "use strict";
+const { query } = require("express");
 const express = require("express");
 const { NotFoundError } = require("../services/expressErrorServices");
 
@@ -14,7 +15,7 @@ function movieRoutes({
     try {
       const query = req.query;
       const movies = new ExternalApiController(ExternalApiServices, axios, utils);
-      const data = await movies.getNowPlaying(query, params);
+      const data = await movies.getNowPlaying(params, query);
       return res.status(200).json(data);
     } catch (error) {
       return next(error);
@@ -25,7 +26,7 @@ function movieRoutes({
     try {
         const query = req.query;
         const movies = new ExternalApiController(ExternalApiServices, axios, utils)
-        const data = await movies.getPopular(query, params)
+        const data = await movies.getPopular(params, query)
         return res.status(200).json(data)
 
         
@@ -33,6 +34,19 @@ function movieRoutes({
         return next(error)
         
     }
+  })
+
+  router.get("/top_rated", async function(req, res, next) {
+    try {
+        const query = req.query
+        const movies = new ExternalApiController(ExternalApiServices, axios, utils);
+        const data = await movies.getTopRated(params, query)
+        return res.status(200).json(data)
+    } catch (error) {
+        return next(error)
+        
+    }
+    
   })
 
   router.get("/:id", async function (req, res, next) {

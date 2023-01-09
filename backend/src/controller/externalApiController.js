@@ -28,7 +28,7 @@ class ExternalApiController {
   }
   // get movies now playing in theaters
   // optional string:lang => default: en-US, int:page, string:region
-  async getNowPlaying(query, params) {
+  async getNowPlaying(params, query) {
     let {getNowPlayingRoute} = params
     try {
       const res = await this.ExternalApiServices.getMoviesGroupedBy(
@@ -46,7 +46,7 @@ class ExternalApiController {
     }
   }
   // get popular movies
-  async getPopular(query, params) {
+  async getPopular(params, query) {
     let {getPopularRoute} = params
     try {
         const res = await this.ExternalApiServices.getMoviesGroupedBy(
@@ -65,8 +65,23 @@ class ExternalApiController {
     
   }
   // get top rated movies
-  async getTopRated() {
-    const res = await this.ExternalApiServices();
+  async getTopRated(params, query) {
+    let {getTopRatedRoute} = params
+    try {
+        const res = await this.ExternalApiServices.getMoviesGroupedBy(
+            this.axios,
+            this.API_URL,
+            getTopRatedRoute,
+            this.API_KEY,
+            query
+          );
+          return this.utils.createImageFromApiArray(res)
+        
+    } catch (error) {
+        throw error
+        
+    }
+    
   }
   // get upcoming movie
   async getUpcoming() {

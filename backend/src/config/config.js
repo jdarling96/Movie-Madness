@@ -14,7 +14,8 @@ const PORT = +process.env.PORT || 3002;
 const params = {
   getMovieRoute: "/movie/",
   getNowPlayingRoute: "/movie/now_playing",
-  getPopularRoute: "/movie/popular"
+  getPopularRoute: "/movie/popular",
+  getTopRatedRoute: "/movie/top_rated",
 }
 
 // Use dev database, testing database, or via env var, production database
