@@ -11,6 +11,11 @@ const API_URL = process.env.API_URL
 
 const PORT = +process.env.PORT || 3002;
 
+const params = {
+  getMovieRoute: '/movie/',
+  getNowPlayingRoute: '/movie/now_playing?',
+}
+
 // Use dev database, testing database, or via env var, production database
  function getDatabaseUri() {
   return (process.env.NODE_ENV === "test")
@@ -36,5 +41,6 @@ module.exports = {
   BCRYPT_WORK_FACTOR,
   getDatabaseUri,
   API_KEY,
-  API_URL
+  API_URL,
+  params
 };

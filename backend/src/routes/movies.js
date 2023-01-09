@@ -7,14 +7,15 @@ function movieRoutes({
   ExternalApiServices,
   axios,
   params,
+  utils
 }) {
   const router = express.Router();
   router.get("/now_playing", async function (req, res, next) {
     try {
       const query = req.query;
       console.log(query);
-      const movies = new ExternalApiController(ExternalApiServices, axios);
-      const data = await movies.getNowPlaying(params, query);
+      const movies = new ExternalApiController(ExternalApiServices, axios, utils);
+      const data = await movies.getNowPlaying(query, params);
       return res.status(200).json(data);
     } catch (error) {
       return next(error);
@@ -25,7 +26,7 @@ function movieRoutes({
     try {
       //console.log(req.query)
       const movieId = req.params.id;
-      const movie = new ExternalApiController(ExternalApiServices, axios);
+      const movie = new ExternalApiController(ExternalApiServices, axios, utils);
       const data = await movie.getMovie(movieId, params);
       //console.log(data)
 

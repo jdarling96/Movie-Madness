@@ -8,14 +8,14 @@ const movieRouter = require("../routes/movies")
 
 
 
-function server({ExternalApiController, ExternalApiServices, axios, params}){
+function server({ExternalApiController, ExternalApiServices, axios, params, utils}){
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 
-app.use("/users", userRouter.userRoutes())
-app.use("/movies", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, params}))
+//app.use("/users", userRouter.userRoutes())
+app.use("/movies", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, params, utils}))
 
 app.use(function (req, res, next) {
   return next(new NotFoundError());
