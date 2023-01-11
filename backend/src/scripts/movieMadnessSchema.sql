@@ -31,3 +31,10 @@ CREATE TABLE watchlist (
   movie_id INTEGER NOT NULL,
   PRIMARY KEY (user_id)
 );
+
+CREATE TABLE movie (
+  id INTEGER PRIMARY KEY,
+  poster_path TEXT,
+  name TEXT
+
+);

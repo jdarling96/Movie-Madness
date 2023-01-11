@@ -8,14 +8,14 @@ const authRouter = require("../routes/auth")
 
 
 
-function server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, axios, utils}){
+function server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, AuthController, AuthServices, UserModel, axios, utils}){
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 
 //app.use("/users", userRouter.userRoutes())
-app.use("/auth", authRouter.authRoutes({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, axios, utils}))
+app.use("/auth", authRouter.authRoutes({ExternalAuthApiController, ExternalAuthApiServices, AuthController, AuthServices, UserModel, axios}))
 app.use("/movies", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, utils}))
 
 app.use(function (req, res, next) {

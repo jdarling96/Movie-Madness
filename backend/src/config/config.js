@@ -23,8 +23,8 @@ const params = {
 // Use dev database, testing database, or via env var, production database
  function getDatabaseUri() {
   return (process.env.NODE_ENV === "test")
-      ? "Movie_Madness_test"
-      : process.env.DATABASE_URL || "Movie_Madness";
+      ? "movie_madness_test"
+      : process.env.DATABASE_URL || "movie_madness";
 } 
 
 // Speed up bcrypt during tests, since the algorithm safety isn't being tested
