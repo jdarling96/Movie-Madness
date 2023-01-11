@@ -1,18 +1,20 @@
 "use strict";
-const { API_KEY, API_URL } = require("../config/config");
+const { API_KEY, API_URL, params } = require("../config/config");
+
 
 
 class ExternalApiController {
   constructor(ExternalApiServices, axios, utils) {
     this.ExternalApiServices = ExternalApiServices;
     this.axios = axios;
-    this.API_KEY = API_KEY;
-    this.API_URL = API_URL;
     this.utils = utils
+    this.params = params
+    this.API_KEY = API_KEY
+    this.API_URL = API_URL
   }
   // get a movie from movie ID
-  async getMovie(id, params) {
-    let {getMovieRoute} = params
+  async getMovie(id) {
+    let {getMovieRoute} = this.params
     try {
       const res = await this.ExternalApiServices.getMovie(
         this.axios,
@@ -28,8 +30,8 @@ class ExternalApiController {
   }
   // get movies now playing in theaters
   // optional string:lang => default: en-US, int:page, string:region
-  async getNowPlaying(params, query) {
-    let {getNowPlayingRoute} = params
+  async getNowPlaying(query) {
+    let {getNowPlayingRoute} = this.params
     try {
       const res = await this.ExternalApiServices.getMoviesGroupedBy(
         this.axios,
@@ -46,8 +48,8 @@ class ExternalApiController {
     }
   }
   // get popular movies
-  async getPopular(params, query) {
-    let {getPopularRoute} = params
+  async getPopular(query) {
+    let {getPopularRoute} = this.params
     try {
         const res = await this.ExternalApiServices.getMoviesGroupedBy(
             this.axios,
@@ -65,8 +67,8 @@ class ExternalApiController {
     
   }
   // get top rated movies
-  async getTopRated(params, query) {
-    let {getTopRatedRoute} = params
+  async getTopRated(query) {
+    let {getTopRatedRoute} = this.params
     try {
         const res = await this.ExternalApiServices.getMoviesGroupedBy(
             this.axios,
@@ -84,8 +86,8 @@ class ExternalApiController {
     
   }
   // get upcoming movie
-  async getUpcoming(params, query) {
-    let {getUpcomingRoute} = params
+  async getUpcoming(query) {
+    let {getUpcomingRoute} = this.params
     try {
         const res = await this.ExternalApiServices.getMoviesGroupedBy(
             this.axios,

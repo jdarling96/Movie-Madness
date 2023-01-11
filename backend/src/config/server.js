@@ -3,19 +3,20 @@ const express = require("express");
 const cors = require("cors");
 const { NotFoundError } = require("../services/expressErrorServices");
 const morgan = require("morgan");
-const userRouter = require("../routes/users")
 const movieRouter = require("../routes/movies")
+const authRouter = require("../routes/auth")
 
 
 
-function server({ExternalApiController, ExternalApiServices, axios, params, utils}){
+function server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, axios, utils}){
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 
 //app.use("/users", userRouter.userRoutes())
-app.use("/movies", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, params, utils}))
+app.use("/auth", authRouter.authRoutes({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, axios, utils}))
+app.use("/movies", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, utils}))
 
 app.use(function (req, res, next) {
   return next(new NotFoundError());

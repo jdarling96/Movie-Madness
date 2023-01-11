@@ -26,7 +26,9 @@ describe("/movies/:id => success", () => {
   });
 
   test("should return a 200", async () => {
-    return await request(app).get(`/movies/${50}`).expect(200);
+    const res = await request(app).get(`/movies/${50}`).expect(200);
+    expect(res.statusCode).toEqual(200)
+    expect(res.body).toEqual("Success")
   });
 });
 

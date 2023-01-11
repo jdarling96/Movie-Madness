@@ -1,18 +1,20 @@
 "use strict";
 
 const server = require("./server")
-const { PORT, params } = require("./config");
+const { PORT } = require("./config");
 const utils = require("../utils")
 const axios = require("axios")
 const ExternalApiController = require("../controller/externalApiController")
-const createUserController = require("../controller/createUserController");
+const ExternalAuthApiController = require("../controller/externalAuthApiController")
+const ExternalAuthApiServices = require("../services/externalAuthApiServices")
+//const createUserController = require("../controller/userController");
 
 const ExternalApiServices = require("../services/externalApiServices")
 
 
 
 
-const app = server({ExternalApiController, ExternalApiServices, axios, params, utils})
+const app = server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, axios,utils})
 
 
 app.listen(PORT, function () {

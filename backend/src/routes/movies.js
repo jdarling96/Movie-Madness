@@ -1,13 +1,11 @@
 "use strict";
-const { query } = require("express");
 const express = require("express");
-const { NotFoundError } = require("../services/expressErrorServices");
+
 
 function movieRoutes({
   ExternalApiController,
   ExternalApiServices,
   axios,
-  params,
   utils
 }) {
   const router = express.Router();
@@ -15,7 +13,7 @@ function movieRoutes({
     try {
       const query = req.query;
       const movies = new ExternalApiController(ExternalApiServices, axios, utils);
-      const data = await movies.getNowPlaying(params, query);
+      const data = await movies.getNowPlaying(query);
       return res.status(200).json(data);
     } catch (error) {
       return next(error);
@@ -26,7 +24,7 @@ function movieRoutes({
     try {
         const query = req.query;
         const movies = new ExternalApiController(ExternalApiServices, axios, utils)
-        const data = await movies.getPopular(params, query)
+        const data = await movies.getPopular(query)
         return res.status(200).json(data)
 
         
@@ -40,7 +38,7 @@ function movieRoutes({
     try {
         const query = req.query
         const movies = new ExternalApiController(ExternalApiServices, axios, utils);
-        const data = await movies.getTopRated(params, query)
+        const data = await movies.getTopRated(query)
         return res.status(200).json(data)
     } catch (error) {
         return next(error)
@@ -53,7 +51,7 @@ function movieRoutes({
     try {
         const query = req.query
         const movies = new ExternalApiController(ExternalApiServices, axios, utils)
-        const data = await movies.getUpcoming(params, query)
+        const data = await movies.getUpcoming(query)
         return res.status(200).json(data)
 
         
@@ -68,7 +66,7 @@ function movieRoutes({
       //console.log(req.query)
       const movieId = req.params.id;
       const movie = new ExternalApiController(ExternalApiServices, axios, utils);
-      const data = await movie.getMovie(movieId, params);
+      const data = await movie.getMovie(movieId);
       //console.log(data)
 
       return res.status(200).json(data);
