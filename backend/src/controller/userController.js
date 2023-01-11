@@ -1,5 +1,5 @@
 "use strict";
-const {BadRequestError} = require("../services/expressErrorServices")
+const {BadRequestError} = require("../expressErrorServices")
 
 class UserController {
     constructor(){

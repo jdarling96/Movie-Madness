@@ -1,7 +1,7 @@
 "use strict";
 const express = require("express");
 const cors = require("cors");
-const { NotFoundError } = require("../services/expressErrorServices");
+const { NotFoundError } = require("../expressErrorServices");
 const morgan = require("morgan");
 const movieRouter = require("../routes/movies")
 const authRouter = require("../routes/auth")

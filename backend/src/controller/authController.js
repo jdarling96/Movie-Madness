@@ -1,7 +1,7 @@
 "use strict";
 const jsonschema = require("jsonschema");
 const userRegisterSchema = require("../schemas/userRegister.json");
-const {BadRequestError} = require("../services/expressErrorServices")
+const {BadRequestError} = require("../expressErrorServices")
 
 class AuthController {
   constructor(AuthServices, UserModel, ExternalAuthApiController, ExternalAuthApiServices, axios) {

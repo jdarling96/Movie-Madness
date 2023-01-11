@@ -1,7 +1,7 @@
 const server = require("../config/server");
 const request = require("supertest");
 const ExternalApiController = require("../controller/externalApiController");
-const {NotFoundError, BadRequestError} = require("../services/expressErrorServices")
+const {NotFoundError, BadRequestError} = require("../expressErrorServices")
 const ExternalApiServices = require("../services/externalApiServices");
 const {params} = require("../config/config")
 const utils = {

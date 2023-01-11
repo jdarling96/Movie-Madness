@@ -1,5 +1,5 @@
 "use strict";
-const {BadRequestError} = require("./expressErrorServices");
+const {BadRequestError} = require("../expressErrorServices");
 
 class ExternalAuthApiServices{
 

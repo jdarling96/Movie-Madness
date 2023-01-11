@@ -1,6 +1,6 @@
 "use strict";
 
-const { NotFoundError, BadRequestError } = require("./expressErrorServices");
+const { NotFoundError, BadRequestError } = require("../expressErrorServices");
 
 class ExternalApiServices {
   // get specific movie

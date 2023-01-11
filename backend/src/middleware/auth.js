@@ -1,7 +1,7 @@
 "use strict";
 const jwt = require("jsonwebtoken");
 const {SECRET_KEY} = require("../config/config")
-const { UnauthorizedError } = require("../services/expressErrorServices")
+const { UnauthorizedError } = require("../expressErrorServices")
 
 function authUser(){
     function authenticateJWT(req, res, next) {
