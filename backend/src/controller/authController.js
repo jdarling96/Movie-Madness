@@ -1,6 +1,7 @@
 "use strict";
 const jsonschema = require("jsonschema");
 const userRegisterSchema = require("../schemas/userRegister.json");
+const userAuthSchema = require("../schemas/userAuth.json")
 const {BadRequestError} = require("../expressErrorServices")
 
 class AuthController {
@@ -39,6 +40,31 @@ class AuthController {
     } catch (error) {
       throw error;
     }
+  }
+
+  async login(userData) {
+    try {
+    const validator = jsonschema.validate(userData, userAuthSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
+    // authenticate user
+    const user = new this.UserModel({...userData})
+    const authUser = await user.authenticate()
+    // get token
+    const token = await this.AuthServices.createToken(userData)
+
+    return {...authUser, token: token}
+
+
+
+        
+    } catch (error) {
+        throw error
+        
+    }
+
   }
 }
 

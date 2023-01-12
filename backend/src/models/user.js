@@ -57,6 +57,30 @@ const {
         
 
     }
+
+    async authenticate() {
+        const result = await db.query(
+            `SELECT username,
+                    password,
+                    email,
+                    guest_session AS "guestSession"
+             FROM users
+             WHERE username = $1`,
+          [this.username],
+      );
+
+      const user = result.rows[0]
+
+      if(user) {
+        const isValid = await bcrypt.compare(this.password, user.password);
+        if (isValid === true) {
+            delete user.password;
+            return user;
+          }
+      } 
+        throw new UnauthorizedError("Invalid username/password");
+      
+    }
   }
 
   module.exports = User
