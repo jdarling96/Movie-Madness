@@ -9,7 +9,7 @@ class ExternalAuthApiServices{
             throw new BadRequestError("Check API url!")
 
         })
-        return res.data
+       return res.data
 
     }
 }
