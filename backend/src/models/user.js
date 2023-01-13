@@ -17,6 +17,11 @@ const {
         this.guestSession = ""
     }
 
+    setGuestSession(id){
+        this.guestSession = id
+
+    }
+
     async checkUserDuplicates(){
         const duplicateCheck = await db.query(
             `SELECT username

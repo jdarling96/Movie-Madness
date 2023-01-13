@@ -27,7 +27,8 @@ class AuthController {
       // get guest session
       const externalApiGuestSessionKey = await this.ExternalAuthApiController.getApiSessionKey()
       
-      newUser.guestSession = externalApiGuestSessionKey
+      //newUser.guestSession = externalApiGuestSessionKey
+      newUser.setGuestSession(externalApiGuestSessionKey)
       // create user
       const registeredUser = await newUser.register()
       // get jwt token and send it back
