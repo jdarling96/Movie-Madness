@@ -17,7 +17,8 @@ const params = {
   getPopularRoute: "/movie/popular",
   getTopRatedRoute: "/movie/top_rated",
   getUpcomingRoute: "/movie/upcoming",
-  getGuestSessionRoute: "/authentication/guest_session/new"
+  getGuestSessionRoute: "/authentication/guest_session/new",
+  getSearchMovieRoute: "/search/movie"
 }
 
 // Use dev database, testing database, or via env var, production database

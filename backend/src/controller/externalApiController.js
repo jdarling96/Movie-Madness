@@ -109,6 +109,24 @@ class ExternalApiController {
   async getGenres() {
     const res = await this.ExternalApiServices();
   }
+
+  async searchMovie(query){
+    let {getSearchMovieRoute} = this.params
+    try {
+      const res = await this.ExternalApiServices.searchMovies(
+        this.axios,
+        this.API_URL,
+        getSearchMovieRoute,
+        this.API_KEY,
+        query
+      );
+      return this.utils.createImageFromApiArray(res)
+
+      
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 module.exports = ExternalApiController;

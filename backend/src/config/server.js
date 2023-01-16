@@ -5,6 +5,7 @@ const { NotFoundError } = require("../expressErrorServices");
 const morgan = require("morgan");
 const movieRouter = require("../routes/movies")
 const authRouter = require("../routes/auth")
+const { authenticateJWT } = require("../middleware/auth")
 
 
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(authenticateJWT);
 
 //app.use("/users", userRouter.userRoutes())
 app.use("/auth", authRouter.authRoutes({ExternalAuthApiController, ExternalAuthApiServices, AuthController, AuthServices, UserModel, axios}))

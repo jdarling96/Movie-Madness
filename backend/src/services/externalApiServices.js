@@ -41,7 +41,25 @@ class ExternalApiServices {
    
   }
   //Get movies by genre id /discover/movie  optional:with_genre={genreId}
-  async getGenres() {}
+  static async getGenres() {}
+
+  static async searchMovies(axios, apiUrl, route, apiKey, query){
+    let checkKeys = Object.keys(query)
+    if (checkKeys.includes("query")) {
+      let page = +query.page || 1;
+      if(page >= 1000) throw new BadRequestError("Maximum page reached!")
+      let searchQuery = query.query
+      const res = await axios
+        .get(`${apiUrl}${route}?${apiKey}&query=${searchQuery}&page=${page}`)
+        .catch(() => {
+          throw new BadRequestError("Check API url or query string!");
+        });
+        return res.data;
+    } else {
+        throw new BadRequestError("Check API url or query string!");
+      }
+  
+  }
 }
 
 module.exports = ExternalApiServices;

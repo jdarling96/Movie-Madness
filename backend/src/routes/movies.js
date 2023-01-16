@@ -61,6 +61,19 @@ function movieRoutes({
     }
   })
 
+  router.get("/search", async function (req, res, next) {
+    try {
+      const query = req.query
+      const search = new ExternalApiController(ExternalApiServices, axios, utils);
+      const data = await search.searchMovie(query)
+      res.status(200).json(data)
+      
+    } catch (error) {
+      return next(error)
+      
+    }
+  })
+
   router.get("/:id", async function (req, res, next) {
     try {
       //console.log(req.query)
