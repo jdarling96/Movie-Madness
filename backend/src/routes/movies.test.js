@@ -247,3 +247,53 @@ describe("/movies/:id => failure", () => {
         return await request(app).get('/movies/upcoming?page=1000').expect(400);
       });
   });
+
+
+  describe("/movies/search => success", () => {
+    let axios = {
+      get: () => Promise.resolve({ data: "Success" }),
+    };
+    let app;
+  
+    beforeEach(() => {
+      app = server({
+        ExternalApiController,
+        ExternalApiServices,
+        axios,
+        params,
+        utils
+      });   
+    });
+  
+    test("should return a 200", async () => {
+        return await request(app).get("/movies/search?query=fight club&page=1").expect(200)
+      });
+     
+  });
+  
+  describe("/movies/search => failure", () => {
+    let axios = {
+      get: () => Promise.reject(new BadRequestError("Check API url or query string!")),
+    };
+    let app;
+  
+    beforeEach(() => {
+      app = server({
+        ExternalApiController,
+        ExternalApiServices,
+        axios,
+        params,
+        utils
+      });
+    });
+  
+    test("should return a 400 query not found", async () => {
+      return await request(app).get('/movies/search').expect(400);
+    });
+    test("should return a 400 page limit reached", async () => {
+        return await request(app).get('/movies/search?query=fight club&page=1000').expect(400);
+      });
+    test("should return a 400 external api rejected", async () => {
+        return await request(app).get('/movies/search?query=fight club&page=1').expect(400);
+      });
+  });
