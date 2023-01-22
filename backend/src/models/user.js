@@ -22,6 +22,19 @@ const {
 
     }
 
+    async get(){
+        const userRes = await db.query(
+            `SELECT id
+             FROM users
+             WHERE username = $1`,
+          [this.username],
+      );
+    
+      const user = userRes.rows[0];
+
+    if (!user) throw new NotFoundError(`No user: ${username}`);
+    }
+
     async checkUserDuplicates(){
         const duplicateCheck = await db.query(
             `SELECT username
