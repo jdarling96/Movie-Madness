@@ -8,7 +8,8 @@ class QueueController {
 
     async getQueue(username){
         try {
-        const userId = await new this.UserModel({username})    
+        const user = await new this.UserModel({username})
+        const userId = await user.get()    
 
             // call queue model
             
@@ -17,4 +18,6 @@ class QueueController {
             
         }
     }
+
+    async AddtoQueue()
 }
