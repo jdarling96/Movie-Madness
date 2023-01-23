@@ -24,8 +24,6 @@ class QueueController {
             const user = new this.UserModel({username})
             const getuserId = await user.get()
             const userId = getuserId.id
-            console.log(username)
-            console.log(userId)
             const queue = new this.QueueModel(userId, id, name, poster)
             await queue.checkDuplicate()
             await queue.check()
