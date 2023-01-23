@@ -16,6 +16,13 @@ CREATE TABLE follows (
   
 );
 
+CREATE TABLE movie (
+  movie_id INTEGER PRIMARY KEY,
+  poster_path TEXT,
+  name TEXT
+
+);
+
 CREATE TABLE queue (
   user_id INTEGER
     REFERENCES users ON DELETE CASCADE,
@@ -30,12 +37,4 @@ CREATE TABLE watchlist (
     REFERENCES users ON DELETE CASCADE,
   movie_id INTEGER NOT NULL,
   PRIMARY KEY (user_id)
-);
-
-CREATE TABLE movie (
-  id INTEGER PRIMARY KEY,
-  movie_id INTEGER,
-  poster_path TEXT,
-  name TEXT
-
 );

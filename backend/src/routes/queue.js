@@ -7,7 +7,7 @@ function queueRoutes({
     QueueController,
     UserModel,
     QueueModel,
-    
+
 }){
     const router = express.Router();
 
@@ -20,6 +20,19 @@ function queueRoutes({
             
         }
 
+    })
+
+    router.post("/:username", ensureCorrectUser, async function(req, res, next){
+        try {
+            const username = req.params.username;
+            const movieData = req.body;
+            const queue = new QueueController(QueueModel, UserModel)
+            const data = await queue.addToQueue(movieData, username)
+            return res.status(201).json(data)
+        } catch (error) {
+            return next(error)
+            
+        }
     })
 
 

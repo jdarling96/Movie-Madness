@@ -13,6 +13,24 @@ const {
         this.posterPath = posterPath;
     }
 
+    async check(){
+        const result = await db.query(
+            `SELECT movie_id
+             FROM movie
+             WHERE movie_id = $1 `,
+             [this.movieId]
+        )
+        if(result.rows[0]){
+            return result.rows[0]
+
+        }else{
+            this.store()
+        }
+        
+        
+        
+    }
+
     async store() {
         const result = await db.query(
             `INSERT INTO movie(
@@ -26,7 +44,7 @@ const {
         return result.rows[0]
     }
 
-    async get() {
+    async getMovie() {
         const result = await db.query(
             `SELECT *
              FROM movie
@@ -36,25 +54,4 @@ const {
 
 }
 
-
-
-
-class Queue extends Movie{
-    constructor(userId, movieId, movieName, poster_path){
-        super(movieId, movieName, poster_path)
-        this.userId = userId
-    }
-
-    async get() {
-        const result = await db.query(
-            `SELECT movie_id
-             FROM movie
-             WHERE user_id = $1`,
-             [this.userId]
-        )
-
-        console.log(result)
-    }
-
-
-}
+module.exports = Movie
