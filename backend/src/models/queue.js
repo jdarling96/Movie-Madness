@@ -14,14 +14,18 @@ const {
     }
 
     async getQueue() {
-        const result = await db.query(
-            `SELECT movie_id
+        const results = await db.query(
+            `SELECT movie_id AS "movieId"
              FROM queue
              WHERE user_id = $1`,
              [this.userId]
         )
 
-        console.log(result)
+        if(!results.rows[0]){
+            throw new NotFoundError("No queue found for user!")
+        }
+
+        return results.rows
     }
 
     async checkDuplicate(){

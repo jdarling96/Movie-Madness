@@ -13,7 +13,11 @@ function queueRoutes({
 
     router.get("/:username", ensureCorrectUser, async function(req, res, next) {
         try {
-            // queue controller
+            const username = req.params.username;
+            const queue = new QueueController(QueueModel, UserModel);
+            const data = await queue.getQueue(username)
+            return res.status(200).json(data)
+           
             
         } catch (error) {
             return next(error)

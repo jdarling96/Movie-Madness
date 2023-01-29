@@ -11,8 +11,7 @@ CREATE TABLE follows (
   user_following_id INTEGER
    REFERENCES users ON DELETE CASCADE,
   user_being_followed_id INTEGER
-   REFERENCES users ON DELETE CASCADE,
-   PRIMARY KEY (user_following_id, user_being_followed_id)
+   REFERENCES users ON DELETE CASCADE
   
 );
 
@@ -26,8 +25,8 @@ CREATE TABLE movie (
 CREATE TABLE queue (
   user_id INTEGER
     REFERENCES users ON DELETE CASCADE,
-  movie_id INTEGER REFERENCES movie ON DELETE CASCADE,
-  PRIMARY KEY (user_id)
+  movie_id INTEGER REFERENCES movie ON DELETE CASCADE
+  
     
   
 );
@@ -35,6 +34,5 @@ CREATE TABLE queue (
 CREATE TABLE watchlist (
   user_id INTEGER
     REFERENCES users ON DELETE CASCADE,
-  movie_id INTEGER NOT NULL,
-  PRIMARY KEY (user_id)
+  movie_id INTEGER NOT NULL
 );
