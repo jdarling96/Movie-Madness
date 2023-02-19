@@ -32,7 +32,7 @@ class AuthController {
       // create user
       const registeredUser = await newUser.register()
       // get jwt token and send it back
-      const token = await this.AuthServices.createToken(userData)
+      const token = this.AuthServices.createToken(userData)
       
 
       return {...registeredUser, token: token}
@@ -54,7 +54,7 @@ class AuthController {
     const user = new this.UserModel({...userData})
     const authUser = await user.authenticate()
     // get token
-    const token = await this.AuthServices.createToken(userData)
+    const token = this.AuthServices.createToken(userData)
 
     return {...authUser, token: token}
 

@@ -4,7 +4,7 @@ const {SECRET_KEY} = require("../config/config")
 
 class AuthServices{
 
-    static async createToken(userData) {
+    static createToken(userData) {
         let {username} = userData
         let payload = {
             username: username

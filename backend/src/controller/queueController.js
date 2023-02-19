@@ -8,10 +8,14 @@ class QueueController {
   async getQueue(username) {
     try {
       const user = new this.UserModel({ username });
+      console.log(user)
       const getUserId = await user.get();
+      console.log(getUserId)
       const userId = getUserId.id;
+      console.log(userId)
       const queue = new this.QueueModel(userId);
       const movieIds = await queue.getQueue();
+      console.log(movieIds)
       const movies = await queue.getMovies(
         movieIds.map((id) => id.movieId.toString())
       );
@@ -25,8 +29,8 @@ class QueueController {
     try {
       const { id, name, poster } = movieData;
       const user = new this.UserModel({ username });
-      const getuserId = await user.get();
-      const userId = getuserId.id;
+      const getUserId = await user.get();
+      const userId = getUserId.id;
       const queue = new this.QueueModel(userId, id, name, poster);
       await queue.checkDuplicate();
       await queue.check();
