@@ -5,17 +5,20 @@ class QueueController {
     this.UserModel = UserModel;
   }
 
+  async getUser(username){
+    const user = new this.UserModel({ username });
+    const getUserId = await user.get();
+    const userId = getUserId.id;
+  }
+
   async getQueue(username) {
     try {
+      
       const user = new this.UserModel({ username });
-      console.log(user)
       const getUserId = await user.get();
-      console.log(getUserId)
       const userId = getUserId.id;
-      console.log(userId)
       const queue = new this.QueueModel(userId);
       const movieIds = await queue.getQueue();
-      console.log(movieIds)
       const movies = await queue.getMovies(
         movieIds.map((id) => id.movieId.toString())
       );
