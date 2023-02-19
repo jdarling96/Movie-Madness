@@ -36,6 +36,20 @@ class QueueController {
       throw error;
     }
   }
+
+  async deleteFromQueue(movieData, username) {
+    try {
+      const { id } = movieData;
+      const user = new this.UserModel({ username });
+      const getuserId = await user.get();
+      const userId = getuserId.id;
+      const queue = new this.QueueModel(userId, id);
+      const deleteFromQueue = await queue.delete();
+      return { deleteFromQueue };
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = QueueController;

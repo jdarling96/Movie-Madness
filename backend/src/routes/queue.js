@@ -28,6 +28,18 @@ function queueRoutes({ QueueController, UserModel, QueueModel }) {
     }
   });
 
+  router.delete("/:username", ensureCorrectUser, async function (req, res, next) {
+    try {
+      const username = req.params.username
+      const movieData = req.body
+      const queue = new QueueController(QueueModel, UserModel)
+      const data = await queue.deleteFromQueue(movieData, username)
+      return res.status(200).json(data)
+    } catch (error) {
+      return next(error)
+    }
+  })
+
   return router;
 }
 

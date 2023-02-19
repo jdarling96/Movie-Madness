@@ -32,7 +32,8 @@ const {
         const result = await db.query(
             `SELECT *
              FROM queue
-             WHERE user_id = $1 AND movie_id = $2`,
+             WHERE user_id = $1 
+             AND movie_id = $2`,
              [this.userId, this.movieId]
         )
         if(result.rows[0]) throw new BadRequestError("Movie already exists in queue!")
@@ -50,6 +51,21 @@ const {
         )
 
         return result.rows[0]
+    }
+
+    async delete(){
+        const result = await db.query(
+            `DELETE FROM queue
+             WHERE user_id = $1 
+             AND movie_id = $2
+             RETURNING movie_id`,
+             [this.userId, this.movieId]
+        )
+
+        if(!result.rows[0]){
+            throw new NotFoundError(`No movie: ${this.movieId}`)
+        }
+        return `Movie ${this.movieId} deleted from queue`
     }
 
 

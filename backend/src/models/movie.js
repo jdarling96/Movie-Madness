@@ -26,9 +26,6 @@ const {
         }else{
             this.store()
         }
-        
-        
-        
     }
 
     async store() {
