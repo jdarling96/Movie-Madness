@@ -1,28 +1,29 @@
 "use strict";
 const db = require("../db")
-const Movie = require("../models/movie")
+const Movie = require("./movie")
 const {
     NotFoundError,
     BadRequestError,
     UnauthorizedError,
   } = require("../expressErrorServices");
 
-  class Queue extends Movie{
-    constructor(userId, movieId, movieName, posterPath){
+  class Table extends Movie{
+    constructor(userId, table, movieId, movieName, posterPath){
         super(movieId, movieName, posterPath)
         this.userId = userId
+        this.table = table
     }
 
-    async getQueue() {
+    async getTable() {
         const results = await db.query(
             `SELECT movie_id AS "movieId"
-             FROM queue
+             FROM ${this.table}
              WHERE user_id = $1`,
              [this.userId]
         )
 
         if(!results.rows[0]){
-            throw new NotFoundError("No queue found for user!")
+            throw new NotFoundError(`No ${this.table} found for user!`)
         }
 
         return results.rows
@@ -31,18 +32,18 @@ const {
     async checkDuplicate(){
         const result = await db.query(
             `SELECT *
-             FROM queue
+             FROM ${this.table}
              WHERE user_id = $1 
              AND movie_id = $2`,
              [this.userId, this.movieId]
         )
-        if(result.rows[0]) throw new BadRequestError("Movie already exists in queue!")
+        if(result.rows[0]) throw new BadRequestError(`Movie already exists in ${this.table}`)
 
     }
 
     async add(){
         const result = await db.query(
-            `INSERT INTO queue(
+            `INSERT INTO ${this.table}(
                 user_id,
                 movie_id)
                 VALUES ($1, $2)
@@ -55,7 +56,8 @@ const {
 
     async delete(){
         const result = await db.query(
-            `DELETE FROM queue
+            `DELETE 
+             FROM ${this.table}
              WHERE user_id = $1 
              AND movie_id = $2
              RETURNING movie_id`,
@@ -65,10 +67,10 @@ const {
         if(!result.rows[0]){
             throw new NotFoundError(`No movie: ${this.movieId}`)
         }
-        return `Movie ${this.movieId} deleted from queue`
+        return `Movie ${this.movieId} deleted from ${this.table}`
     }
 
 
 }
 
-module.exports = Queue
+module.exports = Table

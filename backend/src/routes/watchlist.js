@@ -4,7 +4,7 @@ const express = require("express");
 const { Router } = require("express");
 const { ensureCorrectUser } = require("../middleware/auth");
 
-function watchlistRoutes({WatchlistController, WatchlistModel, UserModel}){
+function watchlistRoutes({ TableController, UserModel, TableModel }){
     const router = express.Router()
 
     router.get("/:username", ensureCorrectUser, async function(req, res, next){
@@ -19,4 +19,4 @@ function watchlistRoutes({WatchlistController, WatchlistModel, UserModel}){
     return Router
 }
 
-module.exports = watchlistRoutes
+module.exports.watchlistRoutes = watchlistRoutes

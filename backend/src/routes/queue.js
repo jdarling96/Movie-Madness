@@ -2,14 +2,14 @@
 const express = require("express");
 const { ensureCorrectUser } = require("../middleware/auth");
 
-function queueRoutes({ QueueController, UserModel, QueueModel }) {
+function queueRoutes({ TableController, UserModel, TableModel }) {
   const router = express.Router();
 
   router.get("/:username", ensureCorrectUser, async function (req, res, next) {
     try {
       const username = req.params.username;
-      const queue = new QueueController(QueueModel, UserModel);
-      const data = await queue.getQueue(username);
+      const queue = new TableController(TableModel, UserModel, "queue");
+      const data = await queue.getTable(username);
       return res.status(200).json(data);
     } catch (error) {
       return next(error);
@@ -20,9 +20,9 @@ function queueRoutes({ QueueController, UserModel, QueueModel }) {
     try {
       const username = req.params.username;
       const movieData = req.body;
-      const queue = new QueueController(QueueModel, UserModel);
-      const data = await queue.addToQueue(movieData, username);
-      return res.status(201).json(data);
+      const queue = new TableController(TableModel, UserModel, "queue");
+      const addedToQueue = await queue.addToTable(movieData, username);
+      return res.status(201).json({addedToQueue});
     } catch (error) {
       return next(error);
     }
@@ -32,9 +32,9 @@ function queueRoutes({ QueueController, UserModel, QueueModel }) {
     try {
       const username = req.params.username
       const movieData = req.body
-      const queue = new QueueController(QueueModel, UserModel)
-      const data = await queue.deleteFromQueue(movieData, username)
-      return res.status(200).json(data)
+      const queue = new TableController(TableModel, UserModel, "queue")
+      const deleteFromQueue = await queue.deleteFromTable(movieData, username)
+      return res.status(200).json({deleteFromQueue})
     } catch (error) {
       return next(error)
     }
