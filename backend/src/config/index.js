@@ -12,14 +12,17 @@ const AuthServices = require("../services/authServices")
 const UserModel = require("../models/user")
 const TableModel = require("../models/table")
 const TableController = require("../controller/TableController")
-//const createUserController = require("../controller/userController");
+const UserController = require("../controller/userController")
+const UserService = require("../services/userService")
+
 
 const ExternalApiServices = require("../services/externalApiServices")
 
 
 
 
-const app = server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, AuthController, AuthServices, TableController, TableModel, UserModel, axios,utils})
+const app = server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, AuthController, 
+  AuthServices, TableController, TableModel, UserController, UserService, UserModel, axios,utils})
 
 
 app.listen(PORT, function () {

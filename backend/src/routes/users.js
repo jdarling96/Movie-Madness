@@ -1,17 +1,19 @@
 "use strict";
 const express = require("express");
+const  {ensureCorrectUser} = require("../middleware/auth")
 
 
-function userRoutes({createUserController}) {
+function userRoutes({ UserController, UserService, UserModel }) {
     const router = express.Router();
 
     router.patch("/:username", ensureCorrectUser, async function (req, res, next) {
         try {
 
           const username = req.params.username;
-          const queue = new TableController(TableModel, UserModel, "queue");
-          const data = await queue.getTable(username);
-          return res.status(200).json(data);
+          const userData = req.body
+          const user = new UserController(UserService, UserModel)
+          const updatedUser = await user.updateUserInfo({username, userData})
+          return res.status(201).json({updatedUser});
         } catch (error) {
           return next(error);
         }
@@ -30,4 +32,4 @@ function userRoutes({createUserController}) {
 
 
 
-module.exports.userRoutes = userRoutes
+module.exports.userRoutes = userRoutes;

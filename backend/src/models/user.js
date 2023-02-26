@@ -22,6 +22,12 @@ const {
 
     }
 
+    async setBcryptPass(pass) {
+        const hashed = await bcrypt.hash(pass, BCRYPT_WORK_FACTOR);
+        return hashed
+
+    }
+
     async get(){
         const userRes = await db.query(
             `SELECT id
@@ -102,10 +108,24 @@ const {
       
     }
 
-    async update() {
+    async update(data) {
+        console.log(data)
         const result = await db.query(
-            ``
+            `UPDATE users 
+            SET ${data.columns} 
+            WHERE username = $${data.values.length + 1} 
+            RETURNING username,
+                      email AS "email",
+                      password AS "newPass"`,
+                      [...data.values, this.username]
         )
+
+        const user = result.rows[0];
+
+        if (!user) throw new NotFoundError(`No user: ${this.username}`);
+
+        delete user.newPass;
+        return user;
     }
 
     async delete() {
@@ -119,7 +139,7 @@ const {
 
         const user = result.rows[0]
 
-        if (!user) throw new NotFoundError(`No user: ${username}`);
+        if (!user) throw new NotFoundError(`No user: ${this.username}`);
     }
   }
 
