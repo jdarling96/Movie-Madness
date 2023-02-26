@@ -101,6 +101,26 @@ const {
         throw new UnauthorizedError("Invalid username/password");
       
     }
+
+    async update() {
+        const result = await db.query(
+            ``
+        )
+    }
+
+    async delete() {
+        const result = await db.query(
+            `DELETE
+            FROM users
+            WHERE username = $1
+            RETURNING username`,
+            [this.username]
+        )
+
+        const user = result.rows[0]
+
+        if (!user) throw new NotFoundError(`No user: ${username}`);
+    }
   }
 
   module.exports = User
