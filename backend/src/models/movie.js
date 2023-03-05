@@ -43,12 +43,17 @@ const {
 
     async getMovies(ids) {
         
-        const $ids = "'" + ids.join("','") + "'";
+    
+        const idsCount = Array.from(ids, (v,i) => `$${i + 1}`)
+        const $ids = idsCount.join(",");
+        
+
         
         const results = await db.query(
             `SELECT *
              FROM movie
-             WHERE movie_id IN (${$ids})`
+             WHERE movie_id IN (${$ids})`,
+             [...ids]
         )
         
         return results.rows

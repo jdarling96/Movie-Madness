@@ -10,8 +10,9 @@ const ExternalAuthApiServices = require("../services/externalAuthApiServices")
 const AuthController = require("../controller/authController")
 const AuthServices = require("../services/authServices")
 const UserModel = require("../models/user")
-const TableModel = require("../models/table")
-const TableController = require("../controller/TableController")
+const QueueAndWatchlistModel = require("../models/queueAndWatchlist")
+const QueueController = require("../controller/queueController")
+const WatchlistController = require("../controller/watchlistController")
 const UserController = require("../controller/userController")
 const UserService = require("../services/userService")
 
@@ -22,7 +23,7 @@ const ExternalApiServices = require("../services/externalApiServices")
 
 
 const app = server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, AuthController, 
-  AuthServices, TableController, TableModel, UserController, UserService, UserModel, axios,utils})
+  AuthServices, QueueController, WatchlistController, QueueAndWatchlistModel, UserController, UserService, UserModel, axios,utils})
 
 
 app.listen(PORT, function () {

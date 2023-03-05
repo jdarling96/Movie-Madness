@@ -2,7 +2,7 @@
 const server = require("../config/server");
 const request = require("supertest");
 const TableController = require("../controller/TableController")
-const TableModel = require("../models/table")
+const TableModel = require("../models/queueAndWatchlist")
 const UserModel = require("../models/user");
 const AuthServices = require("../services/authServices")
 const {

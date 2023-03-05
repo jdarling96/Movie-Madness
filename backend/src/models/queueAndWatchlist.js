@@ -7,7 +7,7 @@ const {
     UnauthorizedError,
   } = require("../expressErrorServices");
 
-  class Table extends Movie{
+  class QueueAndWatchlist extends Movie{
     constructor(userId, table, movieId, movieName, posterPath){
         super(movieId, movieName, posterPath)
         this.userId = userId
@@ -73,4 +73,4 @@ const {
 
 }
 
-module.exports = Table
+module.exports = QueueAndWatchlist

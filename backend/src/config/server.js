@@ -14,7 +14,7 @@ const { authenticateJWT } = require("../middleware/auth")
 
 
 function server({ExternalApiController, ExternalAuthApiController, ExternalAuthApiServices, ExternalApiServices, AuthController, 
-  AuthServices, TableController, TableModel, UserController, UserService, UserModel, axios, utils}){
+  AuthServices, QueueController, WatchlistController, QueueAndWatchlistModel, UserController, UserService, UserModel, axios, utils}){
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -24,8 +24,8 @@ app.use(authenticateJWT);
 //app.use("/users", userRouter.userRoutes())
 app.use("/auth", authRouter.authRoutes({ExternalAuthApiController, ExternalAuthApiServices, AuthController, AuthServices, UserModel, axios}))
 app.use("/movies", movieRouter.movieRoutes({ExternalApiController, ExternalApiServices, axios, utils}))
-app.use("/queue", queueRouter.queueRoutes({TableController, TableModel, UserModel}))
-app.use("/watchlist", watchlistRouter.watchlistRoutes({TableController, TableModel, UserModel}))
+app.use("/queue", queueRouter.queueRoutes({QueueController, QueueAndWatchlistModel, UserModel}))
+app.use("/watchlist", watchlistRouter.watchlistRoutes({WatchlistController, QueueAndWatchlistModel, UserModel}))
 app.use("/user", userRouter.userRoutes({UserController, UserService, UserModel}))
 
 app.use(function (req, res, next) {
