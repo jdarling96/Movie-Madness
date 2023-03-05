@@ -1,8 +1,8 @@
 "use strict";
 const server = require("../config/server");
 const request = require("supertest");
-const TableController = require("../controller/TableController")
-const TableModel = require("../models/queueAndWatchlist")
+const WatchlistController = require("../controller/watchlistController")
+const QueueAndWatchlistModel = require("../models/queueAndWatchlist")
 const UserModel = require("../models/user");
 const AuthServices = require("../services/authServices")
 const {
@@ -38,8 +38,8 @@ describe("POST /watchlist/:username => success", () => {
 
   beforeEach(() => {
     app = server({
-      TableModel,
-      TableController,
+      QueueAndWatchlistModel,
+      WatchlistController,
       UserModel,
     });
   });
@@ -68,8 +68,8 @@ describe("GET /watchlist/:username => success", () => {
   
     beforeEach(() => {
       app = server({
-        TableModel,
-        TableController,
+        QueueAndWatchlistModel,
+        WatchlistController,
         UserModel,
       });
     });
@@ -98,8 +98,8 @@ describe("GET /watchlist/:username => success", () => {
   
     beforeEach(() => {
       app = server({
-        TableModel,
-        TableController,
+        QueueAndWatchlistModel,
+        WatchlistController,
         UserModel,
       });
     });
