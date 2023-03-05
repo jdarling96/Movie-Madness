@@ -1,5 +1,4 @@
 "use strict";
-const { BadRequestError } = require("../expressErrorServices");
 
 class UserController {
   constructor(UserService, UserModel) {
@@ -14,6 +13,17 @@ class UserController {
       return update;
     } catch (error) {
       throw error;
+    }
+  }
+
+  async deleteUser(userData) {
+    try {
+        const user = new this.UserService(this.UserModel)
+        const deleteUser = await user.delete(userData)
+        return deleteUser
+        
+    } catch (error) {
+        throw error
     }
   }
 }

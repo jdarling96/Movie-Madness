@@ -45,6 +45,21 @@ class UserService {
       throw error;
     }
   }
+
+  async delete(userData) {
+    try {
+    const { username } = userData
+    const { password } = userData.userData
+    const user = new this.UserModel({ username, password: password });
+    await user.authenticate();
+    const deleteUser = await user.delete()
+    return deleteUser
+        
+    } catch (error) {
+        throw error
+    }
+
+  }
 }
 
 module.exports = UserService;
